@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export		RED="[0;31m"
-export		GREEN="[0;32m"
-export		DEFAULT="[0;39m"
+export    RED="[0;31m"
+export    GREEN="[0;32m"
+export    DEFAULT="[0;39m"
 
 KERNEL="$(uname -s)";
 
@@ -23,16 +23,25 @@ configs=(profile vimrc pryrc git railsrc window_manager macosx muttrc screenrc)
 
 for config in ${configs[@]}
 do
-	if [[ ! -d ${PATH_TO_FILE}/${config}  ]]; then 
-		git submodule add git@github.com:frankywahl/_${config}.git ${config} 
-	fi
+  if [[ ! -d ${PATH_TO_FILE}/${config}  ]]; then 
+    git clone git@github.com:frankywahl/_${config}.git ${PATH_TO_FILE}/${config} 
+    # Append to .gitignore if first time
+    if [[ `grep ${config} ${PATH_TO_FILE}/.gitignore | wc -l | awk '{print $1}'` -lt 1 ]]; then
+      echo "${config}" >> ${PATH_TO_FILE}/.gitignore
+    fi
+    cd ${PATH_TO_FILE}/${config}
+    git remote rename origin Github
+  else
+    cd ${PATH_TO_FILE}/${config}
+    git pull 
+  fi
 done
-git submodule init && git submodule update	
+git submodule init && git submodule update  
 for config in ${configs[@]}
 do
-	if [[ -e ${PATH_TO_FILE}/${config}/install.sh  ]]; then 
-		bash ${PATH_TO_FILE}/${config}/install.sh 
-	fi
+  if [[ -e ${PATH_TO_FILE}/${config}/install.sh  ]]; then 
+    bash ${PATH_TO_FILE}/${config}/install.sh 
+  fi
 done
 
 
@@ -44,43 +53,43 @@ fi
 if [[ $KERNEL = "Linux" ]]; then
   INSTALL_CMD="sudo apt-get install"
   progs+=(
-			vim													# Vim editing client
-			openssh-server							# SSH Server
-			fluxbox											# fluxbox environment 
-			mutt												# mutt e-mail client
-			thunderbird									# Thunderbird e-mail client 
-			vlc													# VLC media player
-			mplayer											# Mplayer media player
-			subversion									# SVN version control system
-			gftp												# FTP graphical user interface
-			xlockmore										# Utility to lock screen
-			xfce4-power-manager					# Power management icon in dock
-			sshfs												# Utility to mount filesystem over SSH
-			gnome-do										# Quicksilver like utility
-			texlive-full								# LaTeX full version
-			tig													# Tig GUI for git history log
-		#	aircrack-ng									# Aircrack utility to crack WEP password
-		#	macchanger									# MAC address changer 
-		#	macchanger-gtk							# MAC address changer 
-		#	pgp													# PGP (Pretty Good Privacy) signatures program 
-		#	enigmail										# GPG extension for thunderbird 
-			mysql-server								# MySQL server
-			apache2											# Apache server
-			phpmyadmin									# PhpMyAdmin (for MySQL server)
-			libapache2-mod-auth-mysql 	# Required by apache and MySQL
-			python-mysqldb							# MySQL in python scripts
-			vpnc												# VPN client
-			network-manager-vpnc
-			network-manager-openvpn
-			network-manager-pptp
-			vncviewer										# VNC client
-			screen											# Screen Manager
-			htop												# A utility like top
-			traceroute									# Traceroute network utility
-			nmap												# Nmap network tool
-		# php5-gd 										# Needed for securimage captcha code
-		# postfix											# Needed to send mail via website
-			)
+      vim                           # Vim editing client
+      openssh-server                # SSH Server
+      fluxbox                       # fluxbox environment 
+      mutt                          # mutt e-mail client
+      thunderbird                   # Thunderbird e-mail client 
+      vlc                           # VLC media player
+      mplayer                       # Mplayer media player
+      subversion                    # SVN version control system
+      gftp                          # FTP graphical user interface
+      xlockmore                     # Utility to lock screen
+      xfce4-power-manager           # Power management icon in dock
+      sshfs                         # Utility to mount filesystem over SSH
+      gnome-do                      # Quicksilver like utility
+      texlive-full                  # LaTeX full version
+      tig                           # Tig GUI for git history log
+      aircrack-ng                   # Aircrack utility to crack WEP password
+      macchanger                    # MAC address changer 
+      macchanger-gtk                # MAC address changer 
+      pgp                           # PGP (Pretty Good Privacy) signatures program 
+      enigmail                      # GPG extension for thunderbird 
+      mysql-server                  # MySQL server
+      apache2                       # Apache server
+      phpmyadmin                    # PhpMyAdmin (for MySQL server)
+      libapache2-mod-auth-mysql     # Required by apache and MySQL
+      python-mysqldb                # MySQL in python scripts
+      vpnc                          # VPN client
+      network-manager-vpnc
+      network-manager-openvpn
+      network-manager-pptp
+      vncviewer                     # VNC client
+      screen                        # Screen Manager
+      htop                          # A utility like top
+      traceroute                    # Traceroute network utility
+      nmap                          # Nmap network tool
+     php5-gd                        # Needed for securimage captcha code
+     postfix                        # Needed to send mail via website
+      )
 fi
 
 
@@ -91,7 +100,7 @@ let number_of_progs=${#progs[@]}-1;
 all_progs=""
 echo "The program will install the following:${GREEN}"
 for i in `seq 0 ${number_of_progs}`; do 
-  echo "	${progs[$i]}"
+  echo "  ${progs[$i]}"
   all_progs=" $all_progs ${progs[$i]}";
 done
 

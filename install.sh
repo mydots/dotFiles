@@ -19,7 +19,7 @@ fi
 source ~/.keys
 
 
-configs=(profile vimrc pryrc git railsrc window_manager macosx muttrc screenrc)
+configs=(profile vimrc pryrc git railsrc window_manager macosx muttrc screenrc tmux)
 
 for config in ${configs[@]}
 do
@@ -45,7 +45,7 @@ do
 done
 
 
-progs=(watch tig curl wget htop nmap ghostscript tree)
+progs=(watch tig curl wget htop nmap ghostscript tree ruby-build rbenv vim tmux)
 
 if [[ $KERNEL = "Darwin" ]]; then
   INSTALL_CMD="brew install"
@@ -53,7 +53,6 @@ fi
 if [[ $KERNEL = "Linux" ]]; then
   INSTALL_CMD="sudo apt-get install"
   progs+=(
-      vim                           # Vim editing client
       openssh-server                # SSH Server
       fluxbox                       # fluxbox environment 
       mutt                          # mutt e-mail client

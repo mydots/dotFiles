@@ -29,8 +29,6 @@ do
     if [[ `grep ${config} ${PATH_TO_FILE}/.gitignore | wc -l | awk '{print $1}'` -lt 1 ]]; then
       echo "${config}" >> ${PATH_TO_FILE}/.gitignore
     fi
-    cd ${PATH_TO_FILE}/${config}
-    git remote rename origin Github
   else
     cd ${PATH_TO_FILE}/${config}
     git pull 

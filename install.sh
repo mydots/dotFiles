@@ -43,7 +43,22 @@ do
 done
 
 
-progs=(watch tig curl wget htop nmap ghostscript tree ruby-build rbenv vim tmux)
+progs=(
+  ack
+  watch 
+  tig curl 
+  wget htop 
+  nmap 
+  ghostscript 
+  tree 
+  ruby-build 
+  rbenv 
+  vim 
+  macvim
+  tmux 
+  git 
+  bash-completion
+)
 
 if [[ $KERNEL = "Darwin" ]]; then
   INSTALL_CMD="brew install"

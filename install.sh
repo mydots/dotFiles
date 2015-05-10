@@ -19,7 +19,7 @@ fi
 source ~/.keys
 
 
-configs=(profile vimrc pryrc git railsrc window_manager macosx muttrc screenrc tmux inputrc)
+configs=(profile vimrc pryrc git railsrc window_manager macosx muttrc screenrc tmux inputrc slate)
 
 for config in ${configs[@]}
 do

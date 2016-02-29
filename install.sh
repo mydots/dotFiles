@@ -24,7 +24,7 @@ configs=(profile vimrc pryrc git railsrc window_manager macosx muttrc screenrc t
 for config in ${configs[@]}
 do
   if [[ ! -d ${PATH_TO_FILE}/${config}  ]]; then 
-    git clone git@github.com:frankywahl/_${config}.git ${PATH_TO_FILE}/${config} 
+    git clone git@github.com:mydots/${config}.git ${PATH_TO_FILE}/${config} 
     # Append to .gitignore if first time
     if [[ `grep ${config} ${PATH_TO_FILE}/.gitignore | wc -l | awk '{print $1}'` -lt 1 ]]; then
       echo "${config}" >> ${PATH_TO_FILE}/.gitignore

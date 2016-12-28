@@ -63,3 +63,24 @@ apps:
     # pgp                           # PGP (Pretty Good Privacy) signatures program
   darwin:
     - *everywhere
+
+brew:
+  darwin:
+    - appcleaner
+    - astah-professional
+    - dash
+    - docker
+    - dropbox
+    - google-chrome
+    - graphiql
+    - hammerspoon
+    - iterm2
+    - kodi
+    - little-snitch             # Outgoing connection firewall
+    - micro-snitch              # Know if someone is spying on you
+    - onyx                      # System utilities
+    - postico                   # PostgreSQL client
+    - quicksilver
+    - spotify
+    - transmission
+    - vlc

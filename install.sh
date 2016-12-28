@@ -65,3 +65,9 @@ if [ "$CORRECT" = "y" ]; then
   # Finally, install the programs
   ${INSTALL_CMD} ${apps}
 fi
+
+cd ${PATH_TO_FILE}
+if [[ $KERNEL = "Darwin" ]]; then
+  progs=$(ruby -ryaml -e 'data = YAML.load_file("programs.yml"); puts(data["brew"][ARGV[0].downcase].flatten.sort.join(" "))' $KERNEL)
+  brew cask install $progs
+fi

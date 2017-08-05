@@ -60,10 +60,8 @@ do
   echo "Please enter y or n, is the list above correct?"
   read CORRECT
 done
-if [ "$CORRECT" = "n" ]; then
-  echo "Ok, Not installing ports program"
-  exit 1
+if [ "$CORRECT" = "y" ]; then
+  echo "Ok, installing programs"
+  # Finally, install the programs
+  ${INSTALL_CMD} ${apps}
 fi
-
-# Finally, install the programs
-${INSTALL_CMD} ${apps}

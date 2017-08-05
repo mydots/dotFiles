@@ -12,52 +12,48 @@ set -e
 
 touch ~/.keys
 if [[ "$EMAIL_0" == "" ]]; then
-  echo "Please enter your email" 
+  echo "Please enter your email"
   read EMAIL_0
   echo "export EMAIL_0=${EMAIL_0}" >> ~/.keys
 fi
 source ~/.keys
 
 
-configs=(profile vimrc pryrc git railsrc window_manager macosx muttrc screenrc tmux inputrc hammerspoon)
-
-for config in ${configs[@]}
-do
-  if [[ ! -d ${PATH_TO_FILE}/${config}  ]]; then 
-    git clone git@github.com:mydots/${config}.git ${PATH_TO_FILE}/${config} 
-    # Append to .gitignore if first time
-    if [[ `grep ${config} ${PATH_TO_FILE}/.gitignore | wc -l | awk '{print $1}'` -lt 1 ]]; then
-      echo "${config}" >> ${PATH_TO_FILE}/.gitignore
-    fi
-  else
-    cd ${PATH_TO_FILE}/${config}
-    git pull 
-  fi
-done
-git submodule init && git submodule update  
-for config in ${configs[@]}
-do
-  if [[ -e ${PATH_TO_FILE}/${config}/install.sh  ]]; then 
-    bash ${PATH_TO_FILE}/${config}/install.sh 
-  fi
-done
-
+configs=(
+  git
+  hammerspoon
+  inputrc
+  macosx
+  muttrc
+  profile
+  pryrc
+  railsrc
+  screenrc
+  tmux
+  vimrc
+)
 
 progs=(
   ack
-  watch 
-  tig curl 
-  wget htop 
-  nmap 
-  ghostscript 
-  tree 
-  ruby-build 
-  rbenv 
-  vim 
-  macvim
-  tmux 
-  git 
   bash-completion
+  curl
+  ghostscript
+  git
+  htop                          # A utility like top
+  hub                           # CLI to interface with github
+  macvim
+  mutt                          # mutt e-mail client
+  nmap                          # Nmap network tool
+  postgresql
+  rbenv
+  ruby-build
+  tig                           # Tig GUI for git history log
+  tmux
+  tree
+  vim
+  watch
+  wget
+  yarn
 )
 
 if [[ $KERNEL = "Darwin" ]]; then
@@ -66,43 +62,51 @@ fi
 if [[ $KERNEL = "Linux" ]]; then
   INSTALL_CMD="sudo apt-get install"
   progs+=(
-      openssh-server                # SSH Server
-      fluxbox                       # fluxbox environment 
-      mutt                          # mutt e-mail client
-      thunderbird                   # Thunderbird e-mail client 
-      vlc                           # VLC media player
-      mplayer                       # Mplayer media player
-      subversion                    # SVN version control system
+      fluxbox                       # fluxbox environment
       gftp                          # FTP graphical user interface
-      xlockmore                     # Utility to lock screen
-      xfce4-power-manager           # Power management icon in dock
-      sshfs                         # Utility to mount filesystem over SSH
       gnome-do                      # Quicksilver like utility
+      openssh-server                # SSH Server
+      sshfs                         # Utility to mount filesystem over SSH
       texlive-full                  # LaTeX full version
-      tig                           # Tig GUI for git history log
-      aircrack-ng                   # Aircrack utility to crack WEP password
-      macchanger                    # MAC address changer 
-      macchanger-gtk                # MAC address changer 
-      pgp                           # PGP (Pretty Good Privacy) signatures program 
-      enigmail                      # GPG extension for thunderbird 
-      mysql-server                  # MySQL server
-      apache2                       # Apache server
-      phpmyadmin                    # PhpMyAdmin (for MySQL server)
-      libapache2-mod-auth-mysql     # Required by apache and MySQL
-      python-mysqldb                # MySQL in python scripts
-      vpnc                          # VPN client
-      network-manager-vpnc
-      network-manager-openvpn
-      network-manager-pptp
-      vncviewer                     # VNC client
-      screen                        # Screen Manager
-      htop                          # A utility like top
+      thunderbird                   # Thunderbird e-mail client
       traceroute                    # Traceroute network utility
-      nmap                          # Nmap network tool
-     php5-gd                        # Needed for securimage captcha code
-     postfix                        # Needed to send mail via website
-      )
+      vlc                           # VLC media player
+      vncviewer                     # VNC client
+      vpnc                          # VPN client
+      xfce4-power-manager           # Power management icon in dock
+      xlockmore                     # Utility to lock screen
+      # aircrack-ng                   # Aircrack utility to crack WEP password
+      # apache2                       # Apache server
+      # enigmail                      # GPG extension for thunderbird
+      # macchanger                    # MAC address changer
+      # macchanger-gtk                # MAC address changer
+      # pgp                           # PGP (Pretty Good Privacy) signatures program
+  )
+  configs+=(
+    window_manager
+  )
 fi
+
+for config in ${configs[@]}
+do
+  if [[ ! -d ${PATH_TO_FILE}/${config}  ]]; then
+    git clone git@github.com:mydots/${config}.git ${PATH_TO_FILE}/${config}
+    # Append to .gitignore if first time
+    if [[ `grep ${config} ${PATH_TO_FILE}/.gitignore | wc -l | awk '{print $1}'` -lt 1 ]]; then
+      echo "${config}" >> ${PATH_TO_FILE}/.gitignore
+    fi
+  else
+    cd ${PATH_TO_FILE}/${config}
+    git pull
+  fi
+done
+git submodule init && git submodule update
+for config in ${configs[@]}
+do
+  if [[ -e ${PATH_TO_FILE}/${config}/install.sh  ]]; then
+    bash ${PATH_TO_FILE}/${config}/install.sh
+  fi
+done
 
 
 # Get length of array
@@ -111,12 +115,12 @@ let number_of_progs=${#progs[@]}-1;
 # Make one long list out of it
 all_progs=""
 echo "The program will install the following:${GREEN}"
-for i in `seq 0 ${number_of_progs}`; do 
+for i in `seq 0 ${number_of_progs}`; do
   echo "  ${progs[$i]}"
   all_progs=" $all_progs ${progs[$i]}";
 done
 
-# Make sure User know which programs they are installing and confirm 
+# Make sure User know which programs they are installing and confirm
 echo "${RED}Is the correct list above correct? [y/n]${DEFAULT}"
 read CORRECT
 while [[ "$CORRECT" != "y" && "$CORRECT" != "n" ]]

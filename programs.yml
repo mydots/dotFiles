@@ -1,0 +1,65 @@
+configs:
+  everywhere: &everywhere
+    - git
+    - inputrc
+    - muttrc
+    - profile
+    - pryrc
+    - railsrc
+    - screenrc
+    - tmux
+    - vimrc
+  linux:
+    - *everywhere
+    - window_manager
+  darwin:
+    - *everywhere
+    - hammerspoon
+    - macosx
+
+apps:
+  everywhere: &everywhere
+    - ack
+    - bash-completion
+    - curl
+    - ghostscript
+    - git
+    - go                            # Golang programming language
+    - htop                          # A utility like top
+    - hub                           # CLI to interface with github
+    - macvim
+    - mutt                          # mutt e-mail client
+    - nmap                          # Nmap network tool
+    - postgresql
+    - rbenv                         # Ruby environment package manager
+    - ruby-build
+    - tig                           # Tig GUI for git history log
+    - tmux
+    - tree
+    - vim
+    - watch
+    - wget
+    - yarn
+  linux:
+    - *everywhere
+    - fluxbox                       # fluxbox environment
+    - gftp                          # FTP graphical user interface
+    - gnome-do                      # Quicksilver like utility
+    - openssh-server                # SSH Server
+    - sshfs                         # Utility to mount filesystem over SSH
+    - texlive-full                  # LaTeX full version
+    - thunderbird                   # Thunderbird e-mail client
+    - traceroute                    # Traceroute network utility
+    - vlc                           # VLC media player
+    - vncviewer                     # VNC client
+    - vpnc                          # VPN client
+    - xfce4-power-manager           # Power management icon in dock
+    - xlockmore                     # Utility to lock screen
+    # aircrack-ng                   # Aircrack utility to crack WEP password
+    # apache2                       # Apache server
+    # enigmail                      # GPG extension for thunderbird
+    # macchanger                    # MAC address changer
+    # macchanger-gtk                # MAC address changer
+    # pgp                           # PGP (Pretty Good Privacy) signatures program
+  darwin:
+    - *everywhere

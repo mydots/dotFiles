@@ -18,77 +18,15 @@ if [[ "$EMAIL_0" == "" ]]; then
 fi
 source ~/.keys
 
-
-configs=(
-  git
-  hammerspoon
-  inputrc
-  macosx
-  muttrc
-  profile
-  pryrc
-  railsrc
-  screenrc
-  tmux
-  vimrc
-)
-
-progs=(
-  ack
-  bash-completion
-  curl
-  ghostscript
-  git
-  htop                          # A utility like top
-  hub                           # CLI to interface with github
-  macvim
-  mutt                          # mutt e-mail client
-  nmap                          # Nmap network tool
-  postgresql
-  rbenv
-  ruby-build
-  tig                           # Tig GUI for git history log
-  tmux
-  tree
-  vim
-  watch
-  wget
-  yarn
-)
-
 if [[ $KERNEL = "Darwin" ]]; then
   INSTALL_CMD="brew install"
 fi
 if [[ $KERNEL = "Linux" ]]; then
   INSTALL_CMD="sudo apt-get install"
-  progs+=(
-      fluxbox                       # fluxbox environment
-      gftp                          # FTP graphical user interface
-      gnome-do                      # Quicksilver like utility
-      openssh-server                # SSH Server
-      sshfs                         # Utility to mount filesystem over SSH
-      texlive-full                  # LaTeX full version
-      thunderbird                   # Thunderbird e-mail client
-      traceroute                    # Traceroute network utility
-      vlc                           # VLC media player
-      vncviewer                     # VNC client
-      vpnc                          # VPN client
-      xfce4-power-manager           # Power management icon in dock
-      xlockmore                     # Utility to lock screen
-      # aircrack-ng                   # Aircrack utility to crack WEP password
-      # apache2                       # Apache server
-      # enigmail                      # GPG extension for thunderbird
-      # macchanger                    # MAC address changer
-      # macchanger-gtk                # MAC address changer
-      # pgp                           # PGP (Pretty Good Privacy) signatures program
-  )
-  configs+=(
-    window_manager
-  )
 fi
 
-for config in ${configs[@]}
-do
+configs=$(ruby -ryaml -e 'data = YAML.load_file("programs.yml"); puts(data["configs"][ARGV[0].downcase].flatten.sort.join(" "))' $KERNEL)
+for config in $configs; do
   if [[ ! -d ${PATH_TO_FILE}/${config}  ]]; then
     git clone git@github.com:mydots/${config}.git ${PATH_TO_FILE}/${config}
     # Append to .gitignore if first time
@@ -101,23 +39,17 @@ do
   fi
 done
 git submodule init && git submodule update
-for config in ${configs[@]}
-do
+for config in $configs; do
   if [[ -e ${PATH_TO_FILE}/${config}/install.sh  ]]; then
     bash ${PATH_TO_FILE}/${config}/install.sh
   fi
 done
 
-
-# Get length of array
-let number_of_progs=${#progs[@]}-1;
-
-# Make one long list out of it
-all_progs=""
+cd ${PATH_TO_FILE}
+apps=$(ruby -ryaml -e 'data = YAML.load_file("programs.yml"); puts(data["apps"][ARGV[0].downcase].flatten.sort.join(" "))' $KERNEL)
 echo "The program will install the following:${GREEN}"
-for i in `seq 0 ${number_of_progs}`; do
-  echo "  ${progs[$i]}"
-  all_progs=" $all_progs ${progs[$i]}";
+for app in $apps; do
+  echo ${app}
 done
 
 # Make sure User know which programs they are installing and confirm
@@ -134,4 +66,4 @@ if [ "$CORRECT" = "n" ]; then
 fi
 
 # Finally, install the programs
-${INSTALL_CMD} ${all_progs}
+${INSTALL_CMD} ${apps}

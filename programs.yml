@@ -84,4 +84,6 @@ brew:
     - spotify
     - transmission
     - vlc
+    - vox
+    - vox-preferences-pane
     - witch

@@ -19,7 +19,7 @@ fi
 source ~/.keys
 
 install_configs() { 
-  configs=$(PATH_TO_FILE=${PATH_TO_FILE} ruby -ryaml -e 'data = YAML.load_file(File.join(ENV["PATH_TO_FILE"], "programs.yml")); puts(data["configs"][ARGV[0].downcase].flatten.sort.join(" "))' $KERNEL)
+  configs=$(PATH_TO_FILE=${PATH_TO_FILE} ruby -ryaml -e 'puts YAML.load_file(File.join(ENV["PATH_TO_FILE"], "programs.yml"))["configs"][ARGV[0].downcase].flatten' $KERNEL)
   for config in $configs; do
     if [[ ! -d ${PATH_TO_FILE}/${config}  ]]; then
       git clone git@github.com:mydots/${config}.git ${PATH_TO_FILE}/${config}
@@ -42,7 +42,7 @@ install_configs() {
 
 install_apps() { 
   cmd=${1}
-  apps=$(PATH_TO_FILE=${PATH_TO_FILE} ruby -ryaml -e 'data = YAML.load_file(File.join(ENV["PATH_TO_FILE"], "programs.yml")); puts(data["apps"][ARGV[0].downcase].flatten.sort.join(" "))' $KERNEL)
+  apps=$(PATH_TO_FILE=${PATH_TO_FILE} ruby -ryaml -e 'puts YAML.load_file(File.join(ENV["PATH_TO_FILE"], "programs.yml"))["apps"][ARGV[0].downcase].flatten' $KERNEL)
   echo "The program will install the following:${GREEN}"
   for app in $apps; do
     echo ${app}
@@ -64,7 +64,7 @@ install_apps() {
 }
 
 install_brew_cask_apps() { 
-  progs=$(PATH_TO_FILE=${PATH_TO_FILE} ruby -ryaml -e 'data = YAML.load_file(File.join(ENV["PATH_TO_FILE"], "programs.yml")); puts(data["brew"][ARGV[0].downcase].flatten.sort.join(" "))' $KERNEL)
+  progs=$(PATH_TO_FILE=${PATH_TO_FILE} ruby -ryaml -e 'puts YAML.load_file(File.join(ENV["PATH_TO_FILE"], "programs.yml"))["brew"][ARGV[0].downcase].flatten' $KERNEL)
   brew cask install $progs
 }
 

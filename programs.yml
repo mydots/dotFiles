@@ -63,6 +63,7 @@ apps:
     # pgp                           # PGP (Pretty Good Privacy) signatures program
   darwin:
     - *everywhere
+    - mas                           # Mac App Store command line tool
 
 brew:
   darwin:

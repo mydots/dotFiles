@@ -32,6 +32,7 @@ apps:
     - nmap                          # Nmap network tool
     - postgresql
     - rbenv                         # Ruby environment package manager
+    - redis
     - ruby-build
     - tig                           # Tig GUI for git history log
     - tmux

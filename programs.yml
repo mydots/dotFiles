@@ -24,7 +24,9 @@ apps:
     - curl
     - ghostscript
     - git
+    - fzf
     - go                            # Golang programming language
+    - highlight
     - htop                          # A utility like top
     - hub                           # CLI to interface with github
     - macvim

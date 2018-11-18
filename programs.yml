@@ -9,6 +9,7 @@ configs:
     - screenrc
     - tmux
     - vimrc
+    - vscode
   linux:
     - *everywhere
     - window_manager
@@ -91,3 +92,4 @@ brew:
     - vox
     - vox-preferences-pane
     - witch
+    - visual-studio-code

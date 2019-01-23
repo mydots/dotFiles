@@ -73,6 +73,7 @@ brew:
   darwin:
     - appcleaner
     - astah-professional
+    - brave-browser
     - dash
     - docker
     - dropbox
@@ -87,6 +88,7 @@ brew:
     - postico                   # PostgreSQL client
     - quicksilver
     - spotify
+    - tor-browser
     - transmission
     - vlc
     - vox

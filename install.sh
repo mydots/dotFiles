@@ -66,7 +66,7 @@ install_apps() {
 
 install_brew_cask_apps() { 
   progs=$(PATH_TO_FILE=${PATH_TO_FILE} ruby -ryaml -e 'puts YAML.load_file(File.join(ENV["PATH_TO_FILE"], "programs.yml"))["brew"][ARGV[0].downcase].flatten' $KERNEL)
-  brew cask install $progs
+  brew install --cask $progs
 }
 
 install_configs

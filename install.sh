@@ -70,3 +70,5 @@ if [[ $KERNEL = "Linux" ]]; then
 elif [[ $KERNEL = "Darwin" ]]; then
   brew bundle
 fi
+
+[ -f $(brew --prefix)/opt/fzf/install ] && $(brew --prefix)/opt/fzf/install --all

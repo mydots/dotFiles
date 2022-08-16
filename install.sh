@@ -64,15 +64,9 @@ install_apps() {
   fi
 }
 
-install_brew_cask_apps() { 
-  progs=$(PATH_TO_FILE=${PATH_TO_FILE} ruby -ryaml -e 'puts YAML.load_file(File.join(ENV["PATH_TO_FILE"], "programs.yml"))["brew"][ARGV[0].downcase].flatten' $KERNEL)
-  brew install --cask $progs
-}
-
 install_configs
 if [[ $KERNEL = "Linux" ]]; then
   install_apps "sudo apt-get install"
 elif [[ $KERNEL = "Darwin" ]]; then
-  install_apps "brew install"
-  install_brew_cask_apps
+  brew bundle
 fi

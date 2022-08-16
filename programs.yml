@@ -10,6 +10,7 @@ configs:
     - tmux
     - vimrc
     - vscode
+    - terraformrc
   linux:
     - *everywhere
     - window_manager

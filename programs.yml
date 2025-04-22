@@ -2,10 +2,10 @@ configs:
   everywhere: &everywhere
     - git
     - inputrc
-    - muttrc
+    #- muttrc
     - profile
     - pryrc
-    - railsrc
+    #- railsrc
     - screenrc
     - tmux
     - vimrc

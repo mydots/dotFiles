@@ -17,6 +17,7 @@ brew "hugo"
 brew "jq"
 brew "macvim"
 brew "mas"
+brew "mysql@8.0"
 brew "nodenv"
 brew "oath-toolkit"
 brew "postgresql", restart_service: true

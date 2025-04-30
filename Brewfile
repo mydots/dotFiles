@@ -40,6 +40,7 @@ brew "heroku/brew/heroku"
 brew "pbar1/tap/mfaws"
 
 cask "1password"
+cask "1password-cli"
 cask "appcleaner"
 cask "altair-graphql-client"
 cask "aws-vpn-client"

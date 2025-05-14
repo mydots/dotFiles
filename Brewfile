@@ -33,7 +33,6 @@ brew "postgresql", restart_service: true
 brew "rbenv"
 brew "reattach-to-user-namespace"
 brew "redis"
-brew "terraform"
 brew "terragrunt"
 brew "tmux"
 brew "tree"
@@ -43,7 +42,9 @@ brew "ykman"
 brew "yubico-piv-tool"
 brew "zsh-autosuggestions"
 brew "zsh-completions"
+
 brew "heroku/brew/heroku"
+brew "hashicorp/tap/terraform"
 
 cask "1password"
 cask "appcleaner"

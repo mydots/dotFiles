@@ -35,6 +35,8 @@ brew "yarn"
 brew "yq"
 brew "zsh-autosuggestions"
 brew "zsh-completions"
+brew "terraform-docs"
+brew "session-manager-plugin"
 
 brew "hashicorp/tap/terraform"
 brew "heroku/brew/heroku"
